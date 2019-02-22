@@ -7,9 +7,49 @@
 //
 
 #include <iostream>
+#include <map>
+#include <utility>
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+using namespace std;
+
+int main(int argc, const char * argv[])
+{
+    map<pair<int, char>, int> transitions =
+    {
+        {{e,a},a},
+        {{a,a},aa},
+        {{b,a},ba},
+        {{c,a},ca},
+        {{ab,a},aba},
+        {{ac,a},aca},
+        {{ba,a},baa},
+        {{bc,a},bca},
+        {{ca,a},caa},
+        {{cb,a},cba},
+        {{aa,a},aaa},
+        {{bb,a},bba},
+        {{cc,a},cca},
+        {{abc,a},bca},
+        {{acb,a},cba},
+        {{bac,a},aca},
+        {{bca,a},caa},
+        {{cab,a},aba},
+        {{cba,a},baa},
+        {{aab,a},BAD},
+        {{aba,a},BAD},
+        {{abb,a},BAD},
+        {{baa,a},BAD},
+        {{bab,a},BAD},
+        {{bba,a},BAD},
+        {{caa,a},BAD},
+        {{cac,a},BAD},
+        {{cca,a},BAD},
+        {{aaa,a},BAD},
+        {{bbb,a},BAD},
+        {{ccc,a},BAD},
+        {{BAD,a},BAD}
+        
+    };
+    
     return 0;
 }
