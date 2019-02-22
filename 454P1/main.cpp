@@ -17,7 +17,12 @@ string alphabet = "abc";
 
 int main(int argc, const char * argv[])
 {
-    int transitions[41][3] =
+    long int n;
+    
+    cout << "enter a numer";
+    cin >> n;
+    
+    long int transitions[41][3] =
     {
         {a,b,c},
         {aa,ab,ac},
@@ -62,40 +67,37 @@ int main(int argc, const char * argv[])
         {BAD,BAD,BAD}
     };
     
-    int currentCount[38];
-    int nextCount[38];
+    long int currentCount[41];
+    long int nextCount[41];
     
-    for (int i = 0; i < 38; i++)
+    for (long int i = 0; i < 41; i++)
     {
         currentCount[i] = 1;
         nextCount[i] = 0;
     }
-    currentCount[37] = 0;
+    currentCount[40] = 0;
     
     
-    
-    for (int st = 0; st < 38; st++)
-    {
-        for (int let = 0; let < 3; let++)
+    for(long int i = 0; i < n; i++){
+        
+        for (long int st = 0; st < 41; st++)
         {
-            if (transitions[st][let] != BAD)
+            for (long int let = 0; let < 3; let++)
             {
-                nextCount[st] += currentCount[st];
+                if (transitions[st][let] != BAD)
+                {
+                    nextCount[st] += currentCount[st];
+                }
             }
         }
+        
+        for (long int i = 0; i < 41; i++)
+        {
+            currentCount[i] = nextCount[i];
+            nextCount[i] = 0;
+        }
+        
     }
-    
-    for (int i = 0; i < 38; i++)
-    {
-        currentCount[i] = nextCount[i];
-        nextCount[i] = 0;
-    }
-    
+    cout << currentCount[0] << endl;
     return 0;
-}
-int transitionTable(int n){
-    vector<int> prev{40};
-    vector<int> cur{40};
-    for (auto iter = map.begin(); iter != map.end(); iter++)
-        for(
 }
