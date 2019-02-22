@@ -53,3 +53,9 @@ int main(int argc, const char * argv[])
     
     return 0;
 }
+int transitionTable(int n){
+    vector<int> prev{40};
+    vector<int> cur{40};
+    for (auto iter = map.begin(); iter != map.end(); iter++)
+        for(
+}
