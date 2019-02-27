@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		3F1F517C221797BF005C2382 /* 454P1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 454P1; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1F517F221797BF005C2382 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E46FF75E22263580008253B6 /* DFA-master */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "DFA-master"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +58,7 @@
 		3F1F517E221797BF005C2382 /* 454P1 */ = {
 			isa = PBXGroup;
 			children = (
+				E46FF75E22263580008253B6 /* DFA-master */,
 				3F1F517F221797BF005C2382 /* main.cpp */,
 			);
 			path = 454P1;
