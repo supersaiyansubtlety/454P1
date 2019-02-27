@@ -8,21 +8,24 @@
 
 #include <iostream>
 #include <string>
+#include "DFA-master/DFA.cpp"
+//#include "/Users/willlucic/Documents/Education/SSU/CS_454/454P1/454P1/DFA-master/DFA.h"
 
 using namespace std;
 
-enum states {a, b, c, ab, ac, ba, bc, ca, cb, aa, bb, cc, abc, acb, bac, bca, cab, cba, aab, aba, abb, aac, aca, acc, baa, bab, bba, bbc, bcb, bcc, caa, cac, cca, cbb, cbc, ccb, aaa, bbb, ccc, BAD};
+enum states {e, a, b, c, ab, ac, ba, bc, ca, cb, aa, bb, cc, abc, acb, bac, bca, cab, cba, aab, aba, abb, aac, aca, acc, baa, bab, bba, bbc, bcb, bcc, caa, cac, cca, cbb, cbc, ccb, BAD};
 
 string alphabet = "abc";
 
 int main(int argc, const char * argv[])
 {
-    long int n;
+    int n;
     
     cout << "enter a numer";
     cin >> n;
+    string input;
     
-    long int transitions[41][3] =
+    int transitions[41][3] =
     {
         {a,b,c},
         {aa,ab,ac},
@@ -34,9 +37,9 @@ int main(int argc, const char * argv[])
         {bca,bcb,bcc},
         {caa,cab,cac},
         {cba,cbb,cbc},
-        {aaa,aab,aac},
-        {bba,bbb,bbc},
-        {cca,ccb,ccc},
+        {BAD,aab,aac},
+        {bba,BAD,bbc},
+        {cca,ccb,BAD},
         {bca,bcb,bcc},
         {cba,cbb,cbc},
         {aca,acb,acc},
@@ -61,28 +64,39 @@ int main(int argc, const char * argv[])
         {bba,BAD,BAD},
         {bca,BAD,BAD},
         {cba,BAD,BAD},
-        {BAD,BAD,BAD},
-        {BAD,BAD,BAD},
-        {BAD,BAD,BAD},
         {BAD,BAD,BAD}
     };
     
-    long int currentCount[41];
-    long int nextCount[41];
+//    while (input != "0")
+//    {
+//    cout << "enter a string input: ";
+//    cin >> input;
+//
+//    int curInp = input[0] - 'a';
+//    int curState = 0;
+//    for (int i = 1; i < input.size(); i++)
+//    {
+//        curState = transitions[curState][curInp];
+//        curInp = input[i]-'a';
+//    }
+//    cout << curState << endl;}
     
-    for (long int i = 0; i < 41; i++)
+    
+    long int currentCount[BAD+1];
+    long int nextCount[BAD+1];
+
+    for (int i = 0; i < BAD; i++)
     {
         currentCount[i] = 1;
         nextCount[i] = 0;
     }
-    currentCount[40] = 0;
-    
-    
-    for(long int i = 0; i < n; i++){
-        
-        for (long int st = 0; st < 41; st++)
+    currentCount[BAD] = 0;
+
+    for(int i = 0; i < n; i++){
+
+        for (int st = 0; st < BAD; st++)
         {
-            for (long int let = 0; let < 3; let++)
+            for (int let = 'a'-'a'; let <= 'c'-'a'; let++)
             {
                 if (transitions[st][let] != BAD)
                 {
@@ -90,14 +104,15 @@ int main(int argc, const char * argv[])
                 }
             }
         }
-        
-        for (long int i = 0; i < 41; i++)
+
+        for (int i = 0; i < BAD; i++)
         {
             currentCount[i] = nextCount[i];
             nextCount[i] = 0;
         }
-        
+
     }
+    
     cout << currentCount[0] << endl;
     return 0;
 }
