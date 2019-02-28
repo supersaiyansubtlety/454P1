@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include <string>
+#include <queue>
+# include <vector>
 #include "DFA-master/DFA.cpp"
 //#include "/Users/willlucic/Documents/Education/SSU/CS_454/454P1/454P1/DFA-master/DFA.h"
 
@@ -15,7 +17,10 @@ using namespace std;
 
 enum states {e, a, b, c, ab, ac, ba, bc, ca, cb, aa, bb, cc, abc, acb, bac, bca, cab, cba, aab, aba, abb, aac, aca, acc, baa, bab, bba, bbc, bcb, bcc, caa, cac, cca, cbb, cbc, ccb, BAD};
 
-string alphabet = "abc";
+int k;
+string alphabet;
+//string alphabet = "abc";
+int delta(int curState, int character);
 
 int main(int argc, const char * argv[])
 {
@@ -114,5 +119,96 @@ int main(int argc, const char * argv[])
     }
     
     cout << currentCount[0] << endl;
+    
+    /*
+     -
+     -
+     -
+     -
+     -
+     -
+     -
+     -
+     -
+     -
+     */
+    
+    
+    cout << "Enter and integer k: ";
+    cin >> k;
+    cout << "Enter the digits to be included in the multiple of k: ";
+    cin >> alphabet;
+    
+//    int states[k];
+    //int p2transitions[k][alphabet.size()];
+    
+//    for (int i = 0; i < k ; i++)
+//    {
+//        for (int j = 0; j < alphabet.size(); j++)
+//        {
+//            p2transitions[i][j] = delta(i, j);
+//        }
+//    }
+    
+    
+    
+    queue<int> Q;
+    
+    int* visited  = new int[k+1];
+    for (int i = 0; i < k+1; i++)
+    {
+        visited[i] = 0;
+        cout << visited[i];
+    }
+        
+    visited[0] = 1; //(start state’s visited status is set to true.)
+    
+    vector<int> PARENT, LABEL;
+    
+    Q.push(0);//insert k into QUEUE;
+    int curr, next;
+    while (!Q.empty())//QUEUE is not empty):
+    {
+        curr = Q.front();
+        Q.pop();
+        for (auto c : alphabet)//for each c in R do:
+        {
+            next = delta(curr, c-'0');//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
+            if (next == 0)//: // accepting state reached
+                break;
+            else if (!visited[next])
+            {
+                
+                visited[next] = true;
+
+                PARENT.push_back(curr);
+                LABEL.push_back(c);
+                Q.push(next);
+            }
+        }
+    }
+                    
+    if (next != 0)
+        cout << "No solution" << endl;//output “no “solution // or null-string so that the return type will always be a string
+    else
+    {
+        string answer = "";
+        int curState = PARENT.size() - 1;
+        while (curState > 0)
+        {
+            //trace the string using PARENT pointers and concatenate LABEL symbols as you trace until start state is reached.
+            answer += LABEL[curState];
+            curState = PARENT[curState];
+        }
+        //output the string.
+        cout << answer << endl;
+            
+    }
     return 0;
+}
+
+int delta(int curState, int character)
+{
+//    if (character == k) return 0;
+    return (10*curState + character)%k;
 }

@@ -3,3 +3,4 @@
 *.plist
 *.rsls
 *.rsls
+.DS_Store
