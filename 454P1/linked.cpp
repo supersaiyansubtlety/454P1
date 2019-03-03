@@ -6,12 +6,12 @@
 //  Copyright © 2019 Will-Martin. All rights reserved.
 //
 
-#include "Linked.hpp"
+#include "linked.hpp"
 
 
 Linked::Linked()
 {
-    tail = Link(NULL, NULL, 0);
+    tail = Link<T>(NULL, NULL, 0);
 }
 
 Link* getValue()
@@ -36,19 +36,4 @@ Linked::Link* append(Linked* parent, T value)
 
 
 
-Link::Link(Link* parent, Link* prev, T value):parent(parent), prev(prev), value(value){}
 
-Link::Link* getParent()
-{
-    return parent;
-}
-
-Link::Link* getValue()
-{
-    return value;
-}
-
-Link::getPrev()
-{
-    return prev;
-}

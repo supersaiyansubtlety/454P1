@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F1F5180221797BF005C2382 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1F517F221797BF005C2382 /* main.cpp */; };
-		E4BB4797222B8F6600A14771 /* Linked.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4BB4795222B8F6600A14771 /* Linked.cpp */; };
+		E4BB479F222B9B9E00A14771 /* linked_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4BB479E222B9B9E00A14771 /* linked_list.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,8 +28,7 @@
 		3F1F517F221797BF005C2382 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E4BB4793222B816A00A14771 /* gmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gmp.h; sourceTree = "<group>"; };
 		E4BB4794222B817A00A14771 /* gmpxx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gmpxx.h; sourceTree = "<group>"; };
-		E4BB4795222B8F6600A14771 /* Linked.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Linked.cpp; sourceTree = "<group>"; };
-		E4BB4796222B8F6600A14771 /* Linked.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Linked.hpp; sourceTree = "<group>"; };
+		E4BB479E222B9B9E00A14771 /* linked_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linked_list.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,8 +64,7 @@
 				E4BB4794222B817A00A14771 /* gmpxx.h */,
 				E4BB4793222B816A00A14771 /* gmp.h */,
 				3F1F517F221797BF005C2382 /* main.cpp */,
-				E4BB4795222B8F6600A14771 /* Linked.cpp */,
-				E4BB4796222B8F6600A14771 /* Linked.hpp */,
+				E4BB479E222B9B9E00A14771 /* linked_list.cpp */,
 			);
 			path = 454P1;
 			sourceTree = "<group>";
@@ -127,7 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4BB4797222B8F6600A14771 /* Linked.cpp in Sources */,
+				E4BB479F222B9B9E00A14771 /* linked_list.cpp in Sources */,
 				3F1F5180221797BF005C2382 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

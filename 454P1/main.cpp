@@ -12,6 +12,7 @@
 #include <vector>
 #include <gmpxx.h>
 #include <stdlib.h> // malloc
+#include "linked_list.cpp"
 
 #define integer mpz_t
 
