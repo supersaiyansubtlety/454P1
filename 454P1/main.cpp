@@ -181,7 +181,7 @@ int main(int argc, const char * argv[])
     que.push(k);//insert k into QUEUE;
     int curr = que.front();
     int next = 1;
-    while (!que.empty() || next == 0 )//QUEUE is not empty):
+    while ((!que.empty()) || (next == 0))//QUEUE is not empty):
     {
         curr = que.front();
         que.pop();
