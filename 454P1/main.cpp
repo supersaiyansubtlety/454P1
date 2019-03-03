@@ -167,22 +167,24 @@ int main(int argc, const char * argv[])
     
     queue<int> Q;
     
-    int* visited  = new int[k+1];
+    vector<int> visited(k+1);
     for (int i = 0; i < k+1; i++)
     {
-        visited[i] = 0;
-        cout << visited[i];
+        visited[i] = false;
     }
-        
-    visited[0] = 1; //(start state’s visited status is set to true.)
     
-    vector<int> PARENT, LABEL;
+    
+    visited[k] = true; //(start state’s visited status is set to true.)
+    
+    LinkedList ParentLabel;
+    Node* parent = ParentLabel.head;
     
     Q.push(0);//insert k into QUEUE;
     int curr, next;
     while (!Q.empty())//QUEUE is not empty):
     {
         curr = Q.front();
+        parent = ParentLabel.head;
         Q.pop();
         for (auto c : alphabet)//for each c in R do:
         {
@@ -194,8 +196,9 @@ int main(int argc, const char * argv[])
                 
                 visited[next] = true;
 
-                PARENT.push_back(curr);
-                LABEL.push_back(c);
+//                PARENT.push_back(curr);
+//                LABEL.push_back(c);
+                ParentLabel.add(c - '0', parent);
                 Q.push(next);
             }
         }
@@ -206,12 +209,12 @@ int main(int argc, const char * argv[])
     else
     {
         string answer = "";
-        int curState = PARENT.size() - 1;
-        while (curState > 0)
+        //int curState = PARENT.size() - 1;
+        while (parent)
         {
             //trace the string using PARENT pointers and concatenate LABEL symbols as you trace until start state is reached.
-            answer += LABEL[curState];
-            curState = PARENT[curState];
+            answer += ParentLabel.head->data;
+            parent = ParentLabel.head->parent;
         }
         //output the string.
         cout << answer << endl;
