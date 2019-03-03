@@ -19,11 +19,11 @@ class treeNode
 public:
     treeNode(const treeNode<T>* parent);
     treeNode(const treeNode<T>* parent, const T& value);
-    ~treeNode();
+//    ~treeNode();
     
     treeNode<T>* getParent();
     
-    T Value();
+    T getValue();
     T operator=(const T& value);
     T operator=(const treeNode<T>* node);
     

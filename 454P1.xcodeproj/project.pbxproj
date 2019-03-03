@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3F1F5180221797BF005C2382 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1F517F221797BF005C2382 /* main.cpp */; };
 		E46448E0222BB56A000111AA /* tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E46448DE222BB56A000111AA /* tree.cpp */; };
-		E46448E3222BB5A1000111AA /* tree_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E46448E1222BB5A1000111AA /* tree_node.cpp */; };
 		E4BB479F222B9B9E00A14771 /* linked_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4BB479E222B9B9E00A14771 /* linked_list.cpp */; };
 /* End PBXBuildFile section */
 
@@ -31,8 +30,6 @@
 		E46448DD222B9DC4000111AA /* linked_list.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = linked_list.hpp; sourceTree = "<group>"; };
 		E46448DE222BB56A000111AA /* tree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tree.cpp; sourceTree = "<group>"; };
 		E46448DF222BB56A000111AA /* tree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tree.hpp; sourceTree = "<group>"; };
-		E46448E1222BB5A1000111AA /* tree_node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tree_node.cpp; sourceTree = "<group>"; };
-		E46448E2222BB5A1000111AA /* tree_node.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tree_node.hpp; sourceTree = "<group>"; };
 		E4BB4793222B816A00A14771 /* gmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gmp.h; sourceTree = "<group>"; };
 		E4BB4794222B817A00A14771 /* gmpxx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gmpxx.h; sourceTree = "<group>"; };
 		E4BB479E222B9B9E00A14771 /* linked_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linked_list.cpp; sourceTree = "<group>"; };
@@ -75,8 +72,6 @@
 				E46448DD222B9DC4000111AA /* linked_list.hpp */,
 				E46448DE222BB56A000111AA /* tree.cpp */,
 				E46448DF222BB56A000111AA /* tree.hpp */,
-				E46448E1222BB5A1000111AA /* tree_node.cpp */,
-				E46448E2222BB5A1000111AA /* tree_node.hpp */,
 			);
 			path = 454P1;
 			sourceTree = "<group>";
@@ -140,7 +135,6 @@
 				E4BB479F222B9B9E00A14771 /* linked_list.cpp in Sources */,
 				3F1F5180221797BF005C2382 /* main.cpp in Sources */,
 				E46448E0222BB56A000111AA /* tree.cpp in Sources */,
-				E46448E3222BB5A1000111AA /* tree_node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

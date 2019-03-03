@@ -18,8 +18,8 @@ treeNode<T>::treeNode(const treeNode<T>* parent, const T& value):parent(parent)
     if (sizeof(value) <= sizeof(T)) { this->value = value; }
 }
 
-template <typename T>
-treeNode<T>::~treeNode() { }
+//template <typename T>
+//treeNode<T>::~treeNode() { }
 
 template <typename T>
 treeNode<T>* treeNode<T>::getParent()
@@ -28,7 +28,7 @@ treeNode<T>* treeNode<T>::getParent()
 }
 
 template <typename T>
-T treeNode<T>::Value()
+T treeNode<T>::getValue()
 {
     return value;
 }

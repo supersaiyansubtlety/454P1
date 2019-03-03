@@ -10,10 +10,11 @@
 #include <string>
 #include <queue>
 #include <vector>
+#include <utility> //make_pair
 #include <gmpxx.h>
 #include <stdlib.h> // malloc
-#include "linked_list.hpp"
-#include "tree.hpp"
+//#include "linked_list.hpp"
+#include "tree.hpp" //tree and treeNode
 
 #define integer mpz_t
 
@@ -21,10 +22,7 @@ using namespace std;
 
 enum states {e, a, b, c, ab, ac, ba, bc, ca, cb, aa, bb, cc, abc, acb, bac, bca, cab, cba, aab, aba, abb, aac, aca, acc, baa, bab, bba, bbc, bcb, bcc, caa, cac, cca, cbb, cbc, ccb, BAD};
 
-int k;
-string alphabet;
-//string alphabet = "abc";
-int delta(int curState, int character);
+int delta(int curState, int character, int k);
 
 int main(int argc, const char * argv[])
 {
@@ -76,33 +74,13 @@ int main(int argc, const char * argv[])
         {BAD,BAD,BAD}
     };
     
-//    while (input != "0")
-//    {
-//    cout << "enter a string input: ";
-//    cin >> input;
-//
-//    int curInp = input[0] - 'a';
-//    int curState = 0;
-//    for (int i = 1; i < input.size(); i++)
-//    {
-//        curState = transitions[curState][curInp];
-//        curInp = input[i]-'a';
-//    }
-//    cout << curState << endl;}
-    
     int initializer[BAD+1]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0};
-    integer currentCount[BAD+1];// = malloc((BAD+1) * sizeof(mpz_t));
-    //currentCount = (mpz_t *)malloc((BAD+1) * sizeof(mpz_t));//[BAD+1];
+    integer currentCount[BAD+1];
     integer nextCount[BAD+1];
-    //nextCount = (mpz_t *)malloc((BAD+1) * sizeof(mpz_t));//[BAD+1];
 
     for (int i = 0; i <= BAD; i++)
     {
-//        mpz_init(**(currentCount + (i*sizeof(mpz_t))));
-//        mpz_set_si(**(currentCount + (i*sizeof(mpz_t))), initializer[i]);
-//        mpz_init(**(nextCount + (i*sizeof(mpz_t))));
         mpz_init(currentCount[i]);
-//        mpz_set_si(currentCount[i], initializer[i]);
         mpz_init(nextCount[i]);
     }
     for (int i = 0; i <= BAD; i++)
@@ -147,75 +125,73 @@ int main(int argc, const char * argv[])
      -
      */
     
+    int k;
+    string alphaString;
     
     cout << "Enter and integer k: ";
     cin >> k;
     cout << "Enter the digits to be included in the multiple of k: ";
-    cin >> alphabet;
+    cin >> alphaString;
     
-//    int states[k];
-    //int p2transitions[k][alphabet.size()];
-    
-//    for (int i = 0; i < k ; i++)
-//    {
-//        for (int j = 0; j < alphabet.size(); j++)
-//        {
-//            p2transitions[i][j] = delta(i, j);
-//        }
-//    }
-    
-    
-    
-    queue<int> Q;
-    
-    vector<int> visited(k+1);
-    for (int i = 0; i < k+1; i++)
+    vector<int> alphabet;
+    for (auto c: alphaString)
     {
-        visited[i] = false;
+        alphabet.push_back(c-'0');
     }
     
+    queue<pair<int, treeNode<int>*> > Q;
     
-    visited[k] = true; //(start state’s visited status is set to true.)
+    vector<bool> visited;
+    visited.push_back(true); //(start state’s visited status is set to true.)
+    for (int i = 0; i < k; i++)
+    {
+        visited.push_back(false);
+    }
+
+    tree<int> ParentLabel;
     
-    LinkedList ParentLabel;
-    Node* parent = ParentLabel.head;
-    
-    Q.push(0);//insert k into QUEUE;
-    int curr, next = 0;
+    Q.push(make_pair(0, ParentLabel.getRoot()));//insert k into QUEUE;
+    pair<int, treeNode<int>*> current = make_pair(0, ParentLabel.getRoot());
+    auto& [cur_val, cur_parent] = current;
+    //same as:
+//    int& cur_val = current.first;
+//    treeNode<int>* T = current.second;
+    int next = 0;
     while (!Q.empty())//QUEUE is not empty):
     {
-        curr = Q.front();
-        parent = ParentLabel.head;
+        if (next == 0) { break; }//accept state reached
+        current = Q.front();
         Q.pop();
+
         for (auto c : alphabet)//for each c in R do:
         {
-            next = delta(curr, c-'0');//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
-            if (next == 0)//: // accepting state reached
+            next = delta(cur_val, c, k);
+            if (next == 0)// accepting state reached
                 break;
             else if (!visited[next])
             {
-                
                 visited[next] = true;
 
-//                PARENT.push_back(curr);
-//                LABEL.push_back(c);
-                ParentLabel.add(c - '0', parent);
-                Q.push(next);
+                Q.push(make_pair
+                (
+                    next,
+                    ParentLabel.add(cur_parent, c - '0'))
+                );
             }
         }
     }
-                    
-    if (next != 0)
-        cout << "No solution" << endl;//output “no “solution // or null-string so that the return type will always be a string
+    
+    //output “no “solution // or null-string so that the return type will always be a string
+    if (next != 0) { cout << "No solution" << endl; }
     else
     {
         string answer = "";
-        //int curState = PARENT.size() - 1;
+        treeNode<int>* parent = cur_parent;
         while (parent)
         {
             //trace the string using PARENT pointers and concatenate LABEL symbols as you trace until start state is reached.
-            answer += ParentLabel.head->data;
-            parent = ParentLabel.head->parent;
+            answer += (parent->getValue() + '0');
+            parent = parent->getParent();
         }
         //output the string.
         cout << answer << endl;
@@ -224,8 +200,7 @@ int main(int argc, const char * argv[])
     return 0;
 }
 
-int delta(int curState, int character)
+int delta(int curState, int character, int k)
 {
-//    if (character == k) return 0;
     return (10*curState + character)%k;
 }

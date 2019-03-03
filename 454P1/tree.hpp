@@ -11,9 +11,30 @@
 #include <stdio.h>
 #include <set>
 
-#include "tree_node.hpp"
+//#include "tree_node.hpp"
 
 using namespace std;
+
+template <typename T>
+class treeNode
+{
+public:
+    treeNode(const treeNode<T>* parent);
+    treeNode(const treeNode<T>* parent, const T& value);
+    //    ~treeNode();
+    
+    treeNode<T>* getParent();
+    
+    T getValue();
+    T operator=(const T& value);
+    T operator=(const treeNode<T>* node);
+    
+private:
+    treeNode<T>* parent;
+    T value;
+};
+// class treeNode
+
 
 template<typename T>
 class tree
@@ -21,11 +42,13 @@ class tree
 public:
     tree();
     ~tree();
+    
+    treeNode<T>* getRoot();
     treeNode<T>* add(const treeNode<T>* parent, T value);
     
 private:
     const treeNode<T>* root;
-    set<treeNode<T>> leaves;
+    set<treeNode<T> > leaves;
     void deleteBranch(treeNode<T>* leaf);
 };
-/* tree_hpp */
+//class tree
