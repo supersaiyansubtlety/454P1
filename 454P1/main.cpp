@@ -11,6 +11,7 @@
 #include <queue>
 #include <vector>
 #include "DFA-master/DFA.cpp"
+#include <forward_list>
 //#include <gmp.h>
 #include <gmpxx.h>
 //#include "/Users/willlucic/Documents/Education/SSU/CS_454/454P1/454P1/DFA-master/DFA.h"
@@ -135,7 +136,7 @@ int main(int argc, const char * argv[])
          */
     
     
-    cout << "Enter and integer k: ";
+    cout << "Enter an integer k: ";
     cin >> k;
     cout << "Enter the digits to be included in the multiple of k: ";
     cin >> alphabet;
@@ -162,13 +163,15 @@ int main(int argc, const char * argv[])
     }
     visited.at(k) = true; //(start state’s visited status is set to true.)
     
-    vector<int> PARENT, LABEL;
+    vector<int> PARENT;
+    vector<int> LABEL;
     
     que.push(k);//insert k into QUEUE; //que is not pushing k or any value... size is still 0 after this line
     int curr = que.front();
     int next = k;
-    while (!que.empty() || next == 0)//QUEUE is not empty):
+    while ((!que.empty())) // || (next == 0))// QUEUE is not empty or the accepting state is reached
     {
+        if(next == 0) break;
         curr = que.front();
         que.pop();
         for (auto c : alphabet)//for each c in R do:
@@ -181,6 +184,7 @@ int main(int argc, const char * argv[])
                 
                 visited[next] = true;
                 
+                
                 PARENT.push_back(curr);
                 LABEL.push_back(c-'0');
                 que.push(next);
@@ -188,22 +192,23 @@ int main(int argc, const char * argv[])
         }
     }
     
-//    if (next != 0)
-//        cout << "No solution" << endl;//output “no “solution // or null-string so that the return type will always be a string
-//    else
-//    {
+    if (next != 0)
+        cout << "No solution" << endl;//output “no “solution // or null-string so that the return type will always be a string
+    else
+    {
         string answer = "";
-        long curState = PARENT.size() - 1;
-        while (curState > 0)
+        
+        auto curstate = ParentLabel.begin();
+        while (curstate != ParentLabel.end())
         {
             //trace the string using PARENT pointers and concatenate LABEL symbols as you trace until start state is reached.
-            answer += LABEL[curState];
-            curState = PARENT[curState];
+            answer += curstate->second;
+            curState = PARENT.at(curState);
         }
         //output the string.
         cout << answer << endl;
         
-   // }
+    }
     return 0;
 }
 
