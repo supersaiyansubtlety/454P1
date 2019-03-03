@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F1F5180221797BF005C2382 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1F517F221797BF005C2382 /* main.cpp */; };
+		E4BB479F222B9B9E00A14771 /* linked_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4BB479E222B9B9E00A14771 /* linked_list.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,10 @@
 /* Begin PBXFileReference section */
 		3F1F517C221797BF005C2382 /* 454P1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 454P1; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1F517F221797BF005C2382 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E46448DD222B9DC4000111AA /* linked_list.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = linked_list.hpp; sourceTree = "<group>"; };
+		E4BB4793222B816A00A14771 /* gmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gmp.h; sourceTree = "<group>"; };
+		E4BB4794222B817A00A14771 /* gmpxx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gmpxx.h; sourceTree = "<group>"; };
+		E4BB479E222B9B9E00A14771 /* linked_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linked_list.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +62,11 @@
 		3F1F517E221797BF005C2382 /* 454P1 */ = {
 			isa = PBXGroup;
 			children = (
+				E4BB4794222B817A00A14771 /* gmpxx.h */,
+				E4BB4793222B816A00A14771 /* gmp.h */,
 				3F1F517F221797BF005C2382 /* main.cpp */,
+				E4BB479E222B9B9E00A14771 /* linked_list.cpp */,
+				E46448DD222B9DC4000111AA /* linked_list.hpp */,
 			);
 			path = 454P1;
 			sourceTree = "<group>";
@@ -118,6 +127,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4BB479F222B9B9E00A14771 /* linked_list.cpp in Sources */,
 				3F1F5180221797BF005C2382 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,6 +180,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -238,6 +249,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_VERSION = "";
+				"HEADER_SEARCH_PATHS[arch=*]" = /usr/local/Cellar/gmp/6.1.2_2/include/;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					/usr/local/lib,
+					/usr/local/Cellar/gmp/6.1.2_2/include/,
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lgmpxx",
+					"-lgmp",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -246,6 +267,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				"HEADER_SEARCH_PATHS[arch=*]" = /usr/local/Cellar/gmp/6.1.2_2/include/;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					/usr/local/lib,
+					/usr/local/Cellar/gmp/6.1.2_2/include/,
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lgmpxx",
+					"-lgmp",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
