@@ -9,8 +9,17 @@
 #include <iostream>
 #include <string>
 #include <queue>
-# include <vector>
+#include <vector>
 #include "DFA-master/DFA.cpp"
+//#include </usr/local/include/gmp.h>
+//#include </usr/local/include/gmpxx.h>
+//#include "DFA-master/gmp.h"
+#include "DFA-master/gmpxx.h"
+#include <stdlib.h> // malloc
+
+//#include <gmpxx.h>
+
+#define integer mpz_t
 //#include "/Users/willlucic/Documents/Education/SSU/CS_454/454P1/454P1/DFA-master/DFA.h"
 
 using namespace std;
@@ -26,11 +35,11 @@ int main(int argc, const char * argv[])
 {
     int n;
     
-    cout << "enter a numer";
+    cout << "enter a number: ";
     cin >> n;
     string input;
     
-    int transitions[41][3] =
+    int transitions[BAD+1][3] =
     {
         {a,b,c},
         {aa,ab,ac},
@@ -56,7 +65,7 @@ int main(int argc, const char * argv[])
         {BAD,BAD,bbc},
         {BAD,acb,BAD},
         {BAD,cab,BAD},
-        {BAD,acb,BAD},
+        {BAD,ccb,BAD},
         {BAD,BAD,aac},
         {BAD,BAD,abc},
         {BAD,BAD,bac},
@@ -86,16 +95,19 @@ int main(int argc, const char * argv[])
 //    }
 //    cout << curState << endl;}
     
-    
-    long int currentCount[BAD+1];
-    long int nextCount[BAD+1];
+    int initializer[BAD+1]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0};
+    integer currentCount[BAD+1];// = malloc((BAD+1) * sizeof(mpz_t));
+    //currentCount = (mpz_t *)malloc((BAD+1) * sizeof(mpz_t));//[BAD+1];
+    integer nextCount[BAD+1];
+    //nextCount = (mpz_t *)malloc((BAD+1) * sizeof(mpz_t));//[BAD+1];
 
     for (int i = 0; i < BAD; i++)
     {
-        currentCount[i] = 1;
-        nextCount[i] = 0;
+        mpz_init(currentCount[i]);
+        mpz_set_si(currentCount[i], initializer[i]);
+        mpz_init(nextCount[i]);
     }
-    currentCount[BAD] = 0;
+    mpz_init2(currentCount[BAD], 0);
 
     for(int i = 0; i < n; i++){
 
@@ -105,20 +117,20 @@ int main(int argc, const char * argv[])
             {
                 if (transitions[st][let] != BAD)
                 {
-                    nextCount[st] += currentCount[st];
+                    mpz_add(nextCount[st], nextCount[st], currentCount[st]);
                 }
             }
         }
 
         for (int i = 0; i < BAD; i++)
         {
-            currentCount[i] = nextCount[i];
-            nextCount[i] = 0;
+            mpz_set(currentCount[i], nextCount[i]);
+            mpz_set_si(nextCount[i], 0);
         }
 
     }
     
-    cout << currentCount[0] << endl;
+    cout << "answer: " << endl << "6119266976149912241614898841866546736" << endl << "found:" << endl << currentCount[0] << endl;
     
     /*
      -
