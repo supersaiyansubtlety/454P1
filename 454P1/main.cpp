@@ -173,6 +173,7 @@ int main(int argc, const char * argv[])
         visited[i] = false;
     }
     
+    
     visited[k] = true; //(start state’s visited status is set to true.)
     
     vector<int> PARENT, LABEL;
