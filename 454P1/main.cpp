@@ -11,7 +11,8 @@
 #include <queue>
 #include <vector>
 #include "DFA-master/DFA.cpp"
-#include </usr/local/include/gmp.h>
+//#include <gmp.h>
+#include <gmpxx.h>
 //#include "/Users/willlucic/Documents/Education/SSU/CS_454/454P1/454P1/DFA-master/DFA.h"
 
 using namespace std;
@@ -87,16 +88,15 @@ int main(int argc, const char * argv[])
 //    //    }
 //    //    cout << curState << endl;}
 //
-//
-//        mpz_t currentCount = currentCount[BAD+1];
+//        mpz_t currentCount[BAD+1];
 //        mpz_t nextCount[BAD+1];
 //
-//        for (int i = 0; i < BAD; i++)
+//        for (int i = 1; i < BAD; i++)
 //        {
-//            currentCount[i] = 1;
-//            nextCount[i] = 0;
+//            mpz_init2(currentCount[i], 1);
+//            mpz_init2(nextCount[i], 0);
 //        }
-//        currentCount[BAD] = 0;
+//        mpz_init2(currentCount[BAD], 0);
 //
 //        for(int i = 0; i < n; i++){
 //
@@ -106,15 +106,15 @@ int main(int argc, const char * argv[])
 //                {
 //                    if (transitions[st][let] != BAD)
 //                    {
-//                        nextCount[st] += currentCount[st];
+//                        mpz_add(nextCount[st], nextCount[st], currentCount[st]);
 //                    }
 //                }
 //            }
 //
 //            for (int i = 0; i < BAD; i++)
 //            {
-//                currentCount[i] = nextCount[i];
-//                nextCount[i] = 0;
+//                mpz_set(currentCount[i], nextCount[i]);
+//                mpz_init2(nextCount[i], 0);
 //            }
 //
 //        }
@@ -139,7 +139,6 @@ int main(int argc, const char * argv[])
     cin >> k;
     cout << "Enter the digits to be included in the multiple of k: ";
     cin >> alphabet;
-    
     //    int states[k];
     //int p2transitions[k][alphabet.size()];
     
@@ -161,21 +160,21 @@ int main(int argc, const char * argv[])
         visited[i] = false;
         //cout << visited[i];
     }
-    visited.at(0) = true; //(start state’s visited status is set to true.)
+    visited.at(k) = true; //(start state’s visited status is set to true.)
     
     vector<int> PARENT, LABEL;
     
     que.push(k);//insert k into QUEUE; //que is not pushing k or any value... size is still 0 after this line
-    int curr = 0;
-    int next = 0;
-    while (!que.empty())//QUEUE is not empty):
+    int curr = que.front();
+    int next = k;
+    while (!que.empty() || next == 0)//QUEUE is not empty):
     {
         curr = que.front();
         que.pop();
         for (auto c : alphabet)//for each c in R do:
         {
-            next = delta(curr, c);//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
-            if (next == 0)//: // accepting state reached
+            next = delta(curr, c-'0'); // Recall delta(q, r) = (10×q+r)%k.
+            if (next == 0)   // accepting state reached
                 break;
             else if (!visited[next])
             {
@@ -183,16 +182,16 @@ int main(int argc, const char * argv[])
                 visited[next] = true;
                 
                 PARENT.push_back(curr);
-                LABEL.push_back(c);
+                LABEL.push_back(c-'0');
                 que.push(next);
             }
         }
     }
     
-    if (next != 0)
-        cout << "No solution" << endl;//output “no “solution // or null-string so that the return type will always be a string
-    else
-    {
+//    if (next != 0)
+//        cout << "No solution" << endl;//output “no “solution // or null-string so that the return type will always be a string
+//    else
+//    {
         string answer = "";
         long curState = PARENT.size() - 1;
         while (curState > 0)
@@ -204,12 +203,12 @@ int main(int argc, const char * argv[])
         //output the string.
         cout << answer << endl;
         
-    }
+   // }
     return 0;
 }
 
 int delta(int curState, int character)
 {
     if (character == k) return 0;
-    return (10*curState + character)%k;
+    return (10 * curState + character)%k;
 }
