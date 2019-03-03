@@ -169,7 +169,7 @@ int main(int argc, const char * argv[])
     que.push(k);//insert k into QUEUE; //que is not pushing k or any value... size is still 0 after this line
     int curr = que.front();
     int next = k;
-    while ((!que.empty())) // || (next == 0))// QUEUE is not empty or the accepting state is reached
+    while ((!que.empty()) || (next == 0))// QUEUE is not empty or the accepting state is reached
     {
         if(next == 0) break;
         curr = que.front();
@@ -185,8 +185,8 @@ int main(int argc, const char * argv[])
                 visited[next] = true;
                 
                 
-                PARENT.push_back(curr);
-                LABEL.push_back(c-'0');
+                PARENT[next] = (curr);
+                LABEL[next] = (c-'0');
                 que.push(next);
             }
         }
@@ -197,13 +197,12 @@ int main(int argc, const char * argv[])
     else
     {
         string answer = "";
-        
-        auto curstate = ParentLabel.begin();
-        while (curstate != ParentLabel.end())
+        long curstate = PARENT.size()-1;
+        while (curstate > 0)
         {
             //trace the string using PARENT pointers and concatenate LABEL symbols as you trace until start state is reached.
-            answer += curstate->second;
-            curState = PARENT.at(curState);
+            answer += LABEL[curstate];
+            curstate--;
         }
         //output the string.
         cout << answer << endl;
