@@ -9,8 +9,9 @@
 #include <iostream>
 #include <string>
 #include <queue>
-# include <vector>
+#include <vector>
 #include "DFA-master/DFA.cpp"
+#include </usr/local/include/gmp.h>
 //#include "/Users/willlucic/Documents/Education/SSU/CS_454/454P1/454P1/DFA-master/DFA.h"
 
 using namespace std;
@@ -19,119 +20,119 @@ enum states {e, a, b, c, ab, ac, ba, bc, ca, cb, aa, bb, cc, abc, acb, bac, bca,
 
 int k;
 string alphabet;
-//string alphabet = "abc";
+////string alphabet = "abc";
 int delta(int curState, int character);
 
 int main(int argc, const char * argv[])
 {
-    int n;
-    
-    cout << "enter a numer";
-    cin >> n;
-    string input;
-    
-    int transitions[41][3] =
-    {
-        {a,b,c},
-        {aa,ab,ac},
-        {ba,bb,bc},
-        {ca,cb,cc},
-        {aba,abb,abc},
-        {aca,acb,acc},
-        {baa,bab,bac},
-        {bca,bcb,bcc},
-        {caa,cab,cac},
-        {cba,cbb,cbc},
-        {BAD,aab,aac},
-        {bba,BAD,bbc},
-        {cca,ccb,BAD},
-        {bca,bcb,bcc},
-        {cba,cbb,cbc},
-        {aca,acb,acc},
-        {caa,cab,cac},
-        {aba,abb,abc},
-        {baa,bab,bac},
-        {BAD,BAD,abc},
-        {BAD,BAD,bac},
-        {BAD,BAD,bbc},
-        {BAD,acb,BAD},
-        {BAD,cab,BAD},
-        {BAD,acb,BAD},
-        {BAD,BAD,aac},
-        {BAD,BAD,abc},
-        {BAD,BAD,bac},
-        {bca,BAD,BAD},
-        {cba,BAD,BAD},
-        {cca,BAD,BAD},
-        {BAD,aab,BAD},
-        {BAD,acb,BAD},
-        {BAD,cab,BAD},
-        {bba,BAD,BAD},
-        {bca,BAD,BAD},
-        {cba,BAD,BAD},
-        {BAD,BAD,BAD}
-    };
-    
-//    while (input != "0")
-//    {
-//    cout << "enter a string input: ";
-//    cin >> input;
+//        int n;
 //
-//    int curInp = input[0] - 'a';
-//    int curState = 0;
-//    for (int i = 1; i < input.size(); i++)
-//    {
-//        curState = transitions[curState][curInp];
-//        curInp = input[i]-'a';
-//    }
-//    cout << curState << endl;}
-    
-    
-    long int currentCount[BAD+1];
-    long int nextCount[BAD+1];
+//        cout << "enter a numer";
+//        cin >> n;
+//        string input;
+//
+//        int transitions[41][3] =
+//                {
+//                        {a,b,c},
+//                        {aa,ab,ac},
+//                        {ba,bb,bc},
+//                        {ca,cb,cc},
+//                        {aba,abb,abc},
+//                        {aca,acb,acc},
+//                        {baa,bab,bac},
+//                        {bca,bcb,bcc},
+//                        {caa,cab,cac},
+//                        {cba,cbb,cbc},
+//                        {BAD,aab,aac},
+//                        {bba,BAD,bbc},
+//                        {cca,ccb,BAD},
+//                        {bca,bcb,bcc},
+//                        {cba,cbb,cbc},
+//                        {aca,acb,acc},
+//                        {caa,cab,cac},
+//                        {aba,abb,abc},
+//                        {baa,bab,bac},
+//                        {BAD,BAD,abc},
+//                        {BAD,BAD,bac},
+//                        {BAD,BAD,bbc},
+//                        {BAD,acb,BAD},
+//                        {BAD,cab,BAD},
+//                        {BAD,acb,BAD},
+//                        {BAD,BAD,aac},
+//                        {BAD,BAD,abc},
+//                        {BAD,BAD,bac},
+//                        {bca,BAD,BAD},
+//                        {cba,BAD,BAD},
+//                        {cca,BAD,BAD},
+//                        {BAD,aab,BAD},
+//                        {BAD,acb,BAD},
+//                        {BAD,cab,BAD},
+//                        {bba,BAD,BAD},
+//                        {bca,BAD,BAD},
+//                        {cba,BAD,BAD},
+//                        {BAD,BAD,BAD}
+//                };
+//
+//    //    while (input != "0")
+//    //    {
+//    //    cout << "enter a string input: ";
+//    //    cin >> input;
+//    //
+//    //    int curInp = finput[0] - 'a';
+//    //    int curState = 0;
+//    //    for (int i = 1; i < input.size(); i++)
+//    //    {
+//    //        curState = transitions[curState][curInp];
+//    //        curInp = input[i]-'a';
+//    //    }
+//    //    cout << curState << endl;}
+//
+//
+//        mpz_t currentCount = currentCount[BAD+1];
+//        mpz_t nextCount[BAD+1];
+//
+//        for (int i = 0; i < BAD; i++)
+//        {
+//            currentCount[i] = 1;
+//            nextCount[i] = 0;
+//        }
+//        currentCount[BAD] = 0;
+//
+//        for(int i = 0; i < n; i++){
+//
+//            for (int st = 0; st < BAD; st++)
+//            {
+//                for (int let = 'a'-'a'; let <= 'c'-'a'; let++)
+//                {
+//                    if (transitions[st][let] != BAD)
+//                    {
+//                        nextCount[st] += currentCount[st];
+//                    }
+//                }
+//            }
+//
+//            for (int i = 0; i < BAD; i++)
+//            {
+//                currentCount[i] = nextCount[i];
+//                nextCount[i] = 0;
+//            }
+//
+//        }
+//
+//        cout << currentCount[0] << endl;
 
-    for (int i = 0; i < BAD; i++)
-    {
-        currentCount[i] = 1;
-        nextCount[i] = 0;
-    }
-    currentCount[BAD] = 0;
-
-    for(int i = 0; i < n; i++){
-
-        for (int st = 0; st < BAD; st++)
-        {
-            for (int let = 'a'-'a'; let <= 'c'-'a'; let++)
-            {
-                if (transitions[st][let] != BAD)
-                {
-                    nextCount[st] += currentCount[st];
-                }
-            }
-        }
-
-        for (int i = 0; i < BAD; i++)
-        {
-            currentCount[i] = nextCount[i];
-            nextCount[i] = 0;
-        }
-
-    }
-    
-    cout << currentCount[0] << endl;
-    
-    /*
-     -
-     -
-     -
-     -
-     -
-     -
-     -
-     -
-     -
-     -
-     */
+        /*
+         -
+         -
+         -
+         -
+         -
+         -
+         -
+         -
+         -
+         -
+         */
     
     
     cout << "Enter and integer k: ";
@@ -139,61 +140,61 @@ int main(int argc, const char * argv[])
     cout << "Enter the digits to be included in the multiple of k: ";
     cin >> alphabet;
     
-//    int states[k];
+    //    int states[k];
     //int p2transitions[k][alphabet.size()];
     
-//    for (int i = 0; i < k ; i++)
-//    {
-//        for (int j = 0; j < alphabet.size(); j++)
-//        {
-//            p2transitions[i][j] = delta(i, j);
-//        }
-//    }
+    //    for (int i = 0; i < k ; i++)
+    //    {
+    //        for (int j = 0; j < alphabet.size(); j++)
+    //        {
+    //            p2transitions[i][j] = delta(i, j);
+    //        }
+    //    }
     
     
     
-    queue<int> Q;
+    queue<int> que;
     
-    int* visited  = new int[k+1];
+    vector<int>visited(k+1);
     for (int i = 0; i < k+1; i++)
     {
-        visited[i] = 0;
-        cout << visited[i];
+        visited[i] = false;
+        //cout << visited[i];
     }
-        
-    visited[0] = 1; //(start state’s visited status is set to true.)
+    visited.at(0) = true; //(start state’s visited status is set to true.)
     
     vector<int> PARENT, LABEL;
     
-    Q.push(0);//insert k into QUEUE;
-    int curr, next;
-    while (!Q.empty())//QUEUE is not empty):
+    que.push(k);//insert k into QUEUE; //que is not pushing k or any value... size is still 0 after this line
+    int curr = 0;
+    int next = 0;
+    while (!que.empty())//QUEUE is not empty):
     {
-        curr = Q.front();
-        Q.pop();
+        curr = que.front();
+        que.pop();
         for (auto c : alphabet)//for each c in R do:
         {
-            next = delta(curr, c-'0');//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
+            next = delta(curr, c);//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
             if (next == 0)//: // accepting state reached
                 break;
             else if (!visited[next])
             {
                 
                 visited[next] = true;
-
+                
                 PARENT.push_back(curr);
                 LABEL.push_back(c);
-                Q.push(next);
+                que.push(next);
             }
         }
     }
-                    
+    
     if (next != 0)
         cout << "No solution" << endl;//output “no “solution // or null-string so that the return type will always be a string
     else
     {
         string answer = "";
-        int curState = PARENT.size() - 1;
+        long curState = PARENT.size() - 1;
         while (curState > 0)
         {
             //trace the string using PARENT pointers and concatenate LABEL symbols as you trace until start state is reached.
@@ -202,13 +203,13 @@ int main(int argc, const char * argv[])
         }
         //output the string.
         cout << answer << endl;
-            
+        
     }
     return 0;
 }
 
 int delta(int curState, int character)
 {
-//    if (character == k) return 0;
+    if (character == k) return 0;
     return (10*curState + character)%k;
 }
