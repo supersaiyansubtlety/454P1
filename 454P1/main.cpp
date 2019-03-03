@@ -10,17 +10,10 @@
 #include <string>
 #include <queue>
 #include <vector>
-#include "DFA-master/DFA.cpp"
-//#include </usr/local/include/gmp.h>
-//#include </usr/local/include/gmpxx.h>
-//#include "DFA-master/gmp.h"
-#include "DFA-master/gmpxx.h"
+#include <gmpxx.h>
 #include <stdlib.h> // malloc
 
-//#include <gmpxx.h>
-
 #define integer mpz_t
-//#include "/Users/willlucic/Documents/Education/SSU/CS_454/454P1/454P1/DFA-master/DFA.h"
 
 using namespace std;
 
@@ -101,21 +94,28 @@ int main(int argc, const char * argv[])
     integer nextCount[BAD+1];
     //nextCount = (mpz_t *)malloc((BAD+1) * sizeof(mpz_t));//[BAD+1];
 
-    for (int i = 0; i < BAD; i++)
+    for (int i = 0; i <= BAD; i++)
     {
+//        mpz_init(**(currentCount + (i*sizeof(mpz_t))));
+//        mpz_set_si(**(currentCount + (i*sizeof(mpz_t))), initializer[i]);
+//        mpz_init(**(nextCount + (i*sizeof(mpz_t))));
         mpz_init(currentCount[i]);
-        mpz_set_si(currentCount[i], initializer[i]);
+//        mpz_set_si(currentCount[i], initializer[i]);
         mpz_init(nextCount[i]);
+    }
+    for (int i = 0; i <= BAD; i++)
+    {
+        mpz_set_si(currentCount[i], initializer[i]);
     }
     mpz_init2(currentCount[BAD], 0);
 
-    for(int i = 0; i < n; i++){
-
+    for(int i = 0; i < n; i++)
+    {
         for (int st = 0; st < BAD; st++)
         {
             for (int let = 'a'-'a'; let <= 'c'-'a'; let++)
             {
-                if (transitions[st][let] != BAD)
+                if ((transitions[st][let] != BAD))
                 {
                     mpz_add(nextCount[st], nextCount[st], currentCount[st]);
                 }
