@@ -182,7 +182,7 @@ int main(int argc, const char * argv[])
     }
     
     
-    visited[k] = true; //(start state’s visited status is set to true.)
+    visited[0] = true; //(start state’s visited status is set to true.)
     
     LinkedList ParentLabel;
 //    Node* parent = ParentLabel.head;
