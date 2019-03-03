@@ -13,6 +13,7 @@
 #include <gmpxx.h>
 #include <stdlib.h> // malloc
 #include "linked_list.hpp"
+#include "tree.hpp"
 
 #define integer mpz_t
 
@@ -180,7 +181,7 @@ int main(int argc, const char * argv[])
     Node* parent = ParentLabel.head;
     
     Q.push(0);//insert k into QUEUE;
-    int curr, next;
+    int curr, next = 0;
     while (!Q.empty())//QUEUE is not empty):
     {
         curr = Q.front();
