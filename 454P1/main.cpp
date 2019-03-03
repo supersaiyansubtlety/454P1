@@ -14,7 +14,7 @@
 #include <gmpxx.h>
 #include <stdlib.h> // malloc
 #include "linked_list.hpp"
-#include "tree.hpp"
+//#include "tree.hpp"
 
 #define integer mpz_t
 
