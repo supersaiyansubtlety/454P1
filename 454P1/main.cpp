@@ -146,7 +146,7 @@ int main(int argc, const char * argv[])
      */
     
     
-    cout << "Enter and integer k: ";
+    cout << "Enter an integer k: ";
     cin >> k;
     cout << "Enter the digits to be included in the multiple of k: ";
     cin >> alphabet;
@@ -164,25 +164,25 @@ int main(int argc, const char * argv[])
     
     
     
-    queue<int> Q;
+    queue<int> que;
     
-    int* visited  = new int[k+1];
+    vector<int> visited(k+1);
     for (int i = 0; i < k+1; i++)
     {
-        visited[i] = 0;
-        cout << visited[i];
+        visited[i] = false;
     }
         
-    visited[0] = 1; //(start state’s visited status is set to true.)
+    visited[k] = true; //(start state’s visited status is set to true.)
     
     vector<int> PARENT, LABEL;
     
-    Q.push(0);//insert k into QUEUE;
-    int curr, next;
-    while (!Q.empty())//QUEUE is not empty):
+    que.push(k);//insert k into QUEUE;
+    int curr = que.front();
+    int next = 1;
+    while (!que.empty() || next == 0 )//QUEUE is not empty):
     {
-        curr = Q.front();
-        Q.pop();
+        curr = que.front();
+        que.pop();
         for (auto c : alphabet)//for each c in R do:
         {
             next = delta(curr, c-'0');//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
@@ -194,8 +194,8 @@ int main(int argc, const char * argv[])
                 visited[next] = true;
 
                 PARENT.push_back(curr);
-                LABEL.push_back(c);
-                Q.push(next);
+                LABEL.push_back(c-'0');
+                que.push(next);
             }
         }
     }
@@ -205,7 +205,7 @@ int main(int argc, const char * argv[])
     else
     {
         string answer = "";
-        int curState = PARENT.size() - 1;
+        long curState = PARENT.size() - 1;
         while (curState > 0)
         {
             //trace the string using PARENT pointers and concatenate LABEL symbols as you trace until start state is reached.
@@ -221,6 +221,6 @@ int main(int argc, const char * argv[])
 
 int delta(int curState, int character)
 {
-//    if (character == k) return 0;
+    if (character == k) return 0;
     return (10*curState + character)%k;
 }

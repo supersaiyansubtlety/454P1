@@ -13,11 +13,11 @@
 
 using namespace std;
 
-template <class T>
 
-class Linked;
+
+//class Linked;
 class Link;
-
+//template <typename T>
 class Linked
 {
     Linked();
@@ -26,7 +26,7 @@ class Linked
     Link* getValue();
     Link* getNext();
     
-    Link* append(Linke* prev, T value);
+    Link* append(Linked* prev, T value);
 private:
     Link* tail;
 };

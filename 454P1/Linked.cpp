@@ -7,19 +7,19 @@
 //
 
 #include "Linked.hpp"
-
+using namespace std;
 
 Linked::Linked()
 {
     tail = Link(NULL, NULL, 0);
 }
 
-Link* getValue()
+Link* Linked::Linked getValue()
 {
     return tail->value;
 }
 
-Linked::Link* getTail()
+Link* Linked::Linked getTail()
 {
     return tail->getParent();
 }
