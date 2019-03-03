@@ -21,10 +21,8 @@ using namespace std;
 
 enum states {e, a, b, c, ab, ac, ba, bc, ca, cb, aa, bb, cc, abc, acb, bac, bca, cab, cba, aab, aba, abb, aac, aca, acc, baa, bab, bba, bbc, bcb, bcc, caa, cac, cca, cbb, cbc, ccb, BAD};
 
-int k;
-string alphabet;
 //string alphabet = "abc";
-int delta(int curState, int character);
+int delta(int curState, int character, int k);
 
 int main(int argc, const char * argv[])
 {
@@ -147,11 +145,20 @@ int main(int argc, const char * argv[])
      -
      */
     
+    int k;
+    string alphaString;
     
     cout << "Enter and integer k: ";
     cin >> k;
     cout << "Enter the digits to be included in the multiple of k: ";
-    cin >> alphabet;
+    cin >> alphaString;
+    
+    vector<int> alphabet;
+    for (auto c: alphaString)
+    {
+        alphabet.push_back(c-'0');
+    }
+
     
 //    int states[k];
     //int p2transitions[k][alphabet.size()];
@@ -190,7 +197,7 @@ int main(int argc, const char * argv[])
         Q.pop();
         for (auto c : alphabet)//for each c in R do:
         {
-            next = delta(cur_val, c-'0');//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
+            next = delta(cur_val, c, k);//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
             if (next == 0)//: // accepting state reached
                 break;
             else if (!visited[next])
@@ -203,7 +210,7 @@ int main(int argc, const char * argv[])
                 ParentLabel.add(c - '0', cur_parent);
                 Q.push(make_pair
                     (
-                        next-'0',
+                        next,
                         cur_parent
                     )
                 );
@@ -221,7 +228,7 @@ int main(int argc, const char * argv[])
         while (parent)
         {
             //trace the string using PARENT pointers and concatenate LABEL symbols as you trace until start state is reached.
-            answer += ParentLabel.head->data;
+            answer += ParentLabel.head->data+'0';
             parent = ParentLabel.head->parent;
         }
         //output the string.
@@ -231,7 +238,7 @@ int main(int argc, const char * argv[])
     return 0;
 }
 
-int delta(int curState, int character)
+int delta(int curState, int character, int k)
 {
 //    if (character == k) return 0;
     return (10*curState + character)%k;
