@@ -26,6 +26,7 @@
 /* Begin PBXFileReference section */
 		3F1F517C221797BF005C2382 /* 454P1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 454P1; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1F517F221797BF005C2382 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E46448DD222B9DC4000111AA /* linked_list.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = linked_list.hpp; sourceTree = "<group>"; };
 		E4BB4793222B816A00A14771 /* gmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gmp.h; sourceTree = "<group>"; };
 		E4BB4794222B817A00A14771 /* gmpxx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gmpxx.h; sourceTree = "<group>"; };
 		E4BB479E222B9B9E00A14771 /* linked_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linked_list.cpp; sourceTree = "<group>"; };
@@ -65,6 +66,7 @@
 				E4BB4793222B816A00A14771 /* gmp.h */,
 				3F1F517F221797BF005C2382 /* main.cpp */,
 				E4BB479E222B9B9E00A14771 /* linked_list.cpp */,
+				E46448DD222B9DC4000111AA /* linked_list.hpp */,
 			);
 			path = 454P1;
 			sourceTree = "<group>";
