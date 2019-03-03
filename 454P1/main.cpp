@@ -166,7 +166,7 @@ int main(int argc, const char * argv[])
     
     
     
-    queue<int> Q;
+    queue<pair<int, Node*> > Q;
     
     vector<int> visited(k+1);
     for (int i = 0; i < k+1; i++)
@@ -178,18 +178,19 @@ int main(int argc, const char * argv[])
     visited[k] = true; //(start state’s visited status is set to true.)
     
     LinkedList ParentLabel;
-    Node* parent = ParentLabel.head;
+//    Node* parent = ParentLabel.head;
     
-    Q.push(0);//insert k into QUEUE;
-    int curr, next = 0;
+    Q.push(make_pair(0, ParentLabel.head));//insert k into QUEUE;
+    pair<int, Node*> current = make_pair(0, ParentLabel.head);
+    auto& [cur_val, cur_parent] = current;
+    int next = 0;
     while (!Q.empty())//QUEUE is not empty):
     {
-        curr = Q.front();
-        parent = ParentLabel.head;
+        current = Q.front();
         Q.pop();
         for (auto c : alphabet)//for each c in R do:
         {
-            next = delta(curr, c-'0');//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
+            next = delta(cur_val, c-'0');//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
             if (next == 0)//: // accepting state reached
                 break;
             else if (!visited[next])
@@ -199,8 +200,13 @@ int main(int argc, const char * argv[])
 
 //                PARENT.push_back(curr);
 //                LABEL.push_back(c);
-                ParentLabel.add(c - '0', parent);
-                Q.push(next);
+                ParentLabel.add(c - '0', cur_parent);
+                Q.push(make_pair
+                    (
+                        next-'0',
+                        cur_parent
+                    )
+                );
             }
         }
     }
@@ -211,6 +217,7 @@ int main(int argc, const char * argv[])
     {
         string answer = "";
         //int curState = PARENT.size() - 1;
+        Node* parent = cur_parent;
         while (parent)
         {
             //trace the string using PARENT pointers and concatenate LABEL symbols as you trace until start state is reached.
