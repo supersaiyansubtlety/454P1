@@ -163,7 +163,7 @@ int main(int argc, const char * argv[])
     }
     visited.at(k) = true; //(start state’s visited status is set to true.)
     
-    vector<int> PARENT;
+    vector<int> *PARENT;
     vector<int> LABEL;
     
     que.push(k);//insert k into QUEUE; //que is not pushing k or any value... size is still 0 after this line
@@ -181,12 +181,10 @@ int main(int argc, const char * argv[])
                 break;
             else if (!visited[next])
             {
-                
                 visited[next] = true;
-                
-                
-                PARENT[next] = (curr);
-                LABEL[next] = (c-'0');
+            
+                PARENT->push_back(curr);
+                LABEL.push_back(c-'0');
                 que.push(next);
             }
         }
@@ -197,11 +195,11 @@ int main(int argc, const char * argv[])
     else
     {
         string answer = "";
-        long curstate = PARENT.size()-1;
-        while (curstate > 0)
+        long curstate = PARENT->size()-1;
+        while (curstate >= 0)
         {
             //trace the string using PARENT pointers and concatenate LABEL symbols as you trace until start state is reached.
-            answer += LABEL[curstate];
+            answer = to_string(LABEL[curstate]);
             curstate--;
         }
         //output the string.
