@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm> //reverse
 #include <queue>
 #include <vector>
 #include <gmpxx.h>
@@ -73,34 +74,15 @@ int main(int argc, const char * argv[])
         {cba,BAD,BAD},
         {BAD,BAD,BAD}
     };
-    
-//    while (input != "0")
-//    {
-//    cout << "enter a string input: ";
-//    cin >> input;
-//
-//    int curInp = input[0] - 'a';
-//    int curState = 0;
-//    for (int i = 1; i < input.size(); i++)
-//    {
-//        curState = transitions[curState][curInp];
-//        curInp = input[i]-'a';
-//    }
-//    cout << curState << endl;}
+
     
     int initializer[BAD+1]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0};
     integer currentCount[BAD+1];// = malloc((BAD+1) * sizeof(mpz_t));
-    //currentCount = (mpz_t *)malloc((BAD+1) * sizeof(mpz_t));//[BAD+1];
     integer nextCount[BAD+1];
-    //nextCount = (mpz_t *)malloc((BAD+1) * sizeof(mpz_t));//[BAD+1];
 
     for (int i = 0; i <= BAD; i++)
     {
-//        mpz_init(**(currentCount + (i*sizeof(mpz_t))));
-//        mpz_set_si(**(currentCount + (i*sizeof(mpz_t))), initializer[i]);
-//        mpz_init(**(nextCount + (i*sizeof(mpz_t))));
         mpz_init(currentCount[i]);
-//        mpz_set_si(currentCount[i], initializer[i]);
         mpz_init(nextCount[i]);
     }
     for (int i = 0; i <= BAD; i++)
@@ -176,27 +158,32 @@ int main(int argc, const char * argv[])
     queue<pair<int, Node*> > Q;
     
     vector<bool> visited; //(start state’s visited status is set to true.)
-    visited.push_back(0);
-    for (int i = 0; i < k; i++)
+    
+    for (int i = 0; i < k-1; i++)
     {
         visited.push_back(false);
     }
+    visited.push_back(true);
     
     LinkedList ParentLabel;
     
     Q.push(make_pair(k, ParentLabel.head));//insert k into QUEUE;
     pair<int, Node*> current = Q.front();
     auto& [cur_val, cur_parent] = current;
-    int next = 0;
+    int next = 1;
     while (!Q.empty())//QUEUE is not empty):
     {
+        if (next == 0) { break; }
         current = Q.front();
         Q.pop();
         for (auto c : alphabet)//for each c in R do:
         {
             next = delta(cur_val, c, k);//next = delta(curr,c); // Recall delta(q, r) = (10×q+r)%k.
-            if (next == 0)//: // accepting state reached
+            if (next == 0) // accepting state reached
+            {
+                ParentLabel.add(c, cur_parent);
                 break;
+            }
             else if (!visited[next])
             {
                 
@@ -208,7 +195,7 @@ int main(int argc, const char * argv[])
                 Q.push(make_pair
                     (
                         next,
-                        cur_parent
+                        ParentLabel.head
                     )
                 );
             }
@@ -229,6 +216,8 @@ int main(int argc, const char * argv[])
             cur_parent = cur_parent->parent;
         }
         //output the string.
+        
+        reverse(answer.begin(), answer.end());
         cout << answer << endl;
             
     }
