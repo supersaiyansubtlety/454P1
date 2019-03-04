@@ -30,10 +30,11 @@ void question1();
 void question2();
 int main(int argc, const char * argv[])
 {
-    char input;
-    cout << "Enter '1' or '2' for question 1 or 2\n'q' to exit:\n ";
-    cin >> input;
+    char input = '0';
+    
     while(input != 'q'){
+        cout << "Enter '1' or '2' for question 1 or 2\n'q' to exit:  ";
+        cin >> input;
         if(input == '1'){
             question1();
             cout << "Enter '1' or '2' for question 1 or 2\n'q' to exit:\n ";
@@ -46,7 +47,6 @@ int main(int argc, const char * argv[])
         }
         else{
             cout << "Invalid input! :: Enter '1', '2', or 'q'\n";
-            cin >> input;
         }
     }
 
@@ -143,7 +143,6 @@ void question1(){
             cout << nextCount[i] << ',';
             set_intA_to_int(nextCount[i], 0);
         }
-        //cout << endl;
         
     }
     
@@ -199,15 +198,12 @@ void question2(){
                 
                 visited[next] = true;
                 
-                //                PARENT.push_back(curr);
-                //                LABEL.push_back(c);
                 ParentLabel.add(c, cur_parent);
                 Q.push(make_pair
-                       (
+                (
                         next,
                         ParentLabel.head
-                        )
-                       );
+                ));
             }
         }
     }
@@ -225,7 +221,7 @@ void question2(){
             answer += cur_parent->data+'0';
             cur_parent = cur_parent->parent;
         }
-        //output the string.
+        //output the string, reversed
         
         reverse(answer.begin(), answer.end());
         cout << answer << endl;
@@ -234,16 +230,6 @@ void question2(){
 }
 int delta(int curState, int character, int k)
 {
-//    if (character == k) return 0;
     return (10*curState + character)%k;
 }
-//    int states[k];
-//int p2transitions[k][alphabet.size()];
 
-//    for (int i = 0; i < k ; i++)
-//    {
-//        for (int j = 0; j < alphabet.size(); j++)
-//        {
-//            p2transitions[i][j] = delta(i, j);
-//        }
-//    }
