@@ -36,7 +36,7 @@ int main(int argc, const char * argv[])
     cin >> n;
     
     //transistion table [state][input] = destination
-    int transitions[BAD+1][3] =
+    int transitions[BAD][3] =
     {
         {a,b,c},
         {aa,ab,ac},
@@ -74,23 +74,21 @@ int main(int argc, const char * argv[])
         {BAD,cab,BAD},
         {bba,BAD,BAD},
         {bca,BAD,BAD},
-        {cba,BAD,BAD},
-        {BAD,BAD,BAD}
+        {cba,BAD,BAD}
     };
 
     
     //for states e through BAD-1 (no BAD b/c always ignored), number of reachable accept states
-    int initializer[BAD+1]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    int initializer[BAD]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
     //i'th column of reachable states count
-    vector<intA[BAD]> countTable;
+    vector<intA*> countTable;
     intA column[BAD];
     for (int i = 0; i < BAD; i++)
     {
         init_intA(column[i]);
     }
     
-    countTable.push_back(column);
-    
+    countTable.push_back(new intA[BAD]);
     //just init, all 0's
     for (int i = 0; i < BAD; i++)
     {
@@ -105,7 +103,12 @@ int main(int argc, const char * argv[])
     //calculate the i+1'th column of reachable accepting state counts
     for(int i = 0; i < n; i++)//end at n-1 because we're finding i+1'th column, so find (n-1)+1'th
     {//go n times b/c string
-        countTable.push_back(column);//make fresh column, table has i+1 columns
+        countTable.push_back(new intA[BAD]);//make fresh column, table has i+1 columns
+        //just init, all 0's
+        for (int i = 0; i < BAD; i++)
+        {
+            init_intA(countTable[0][i]);
+        }
         for (int st = e; st < BAD; st++)
         {//for each state except BAD, e to BAD-1
             for (int let = 'a'-'a'; let <= 'c'-'a'; let++)
