@@ -96,7 +96,7 @@ int main(int argc, const char * argv[])
     {
         set_intA_to_int(currentCount[i], initializer[i]);
     }
-
+    
     //calculate the i+1'th column of reachable accepting state counts
     for(int i = 0; i < n; i++)//end at before n (i=n-1) because we're finding i+1'th column, so last  (n-1)+1'th
     {//go n times b/c string
@@ -116,8 +116,10 @@ int main(int argc, const char * argv[])
         for (int i = 0; i < BAD; i++)
         {
             set_intA_to_intA(currentCount[i], nextCount[i]);
+            cout << nextCount[i] << ',';
             set_intA_to_int(nextCount[i], 0);
         }
+        cout << endl;
         
     }
     
