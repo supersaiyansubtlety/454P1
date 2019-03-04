@@ -36,7 +36,7 @@ int main(int argc, const char * argv[])
     cin >> n;
     
     //transistion table [state][input] = destination
-    int transitions[BAD+1][3] =
+    int transitions[BAD][3] =
     {
         {a,b,c},
         {aa,ab,ac},
@@ -74,13 +74,12 @@ int main(int argc, const char * argv[])
         {BAD,cab,BAD},
         {bba,BAD,BAD},
         {bca,BAD,BAD},
-        {cba,BAD,BAD},
-        {BAD,BAD,BAD}
+        {cba,BAD,BAD}
     };
 
     
     //for states e through BAD-1 (no BAD b/c always ignored), number of reachable accept states
-    int initializer[BAD+1]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    int initializer[BAD]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
     //i'th column of reachable states count
     intA currentCount[BAD];
     //i+1'th column of reachable states count
@@ -99,10 +98,10 @@ int main(int argc, const char * argv[])
     }
 
     //calculate the i+1'th column of reachable accepting state counts
-    for(int i = 0; i < n - 1; i++)//end at n-1 because we're finding i+1'th column, so find (n-1)+1'th
+    for(int i = 0; i < n; i++)//end at before n (i=n-1) because we're finding i+1'th column, so last  (n-1)+1'th
     {//go n times b/c string
         for (int st = e; st < BAD; st++)
-        {//for each state except BAD, e to BAD-1
+        {//for each state except BAD: e to BAD-1
             for (int let = 'a'-'a'; let <= 'c'-'a'; let++)
             {//'a'-'a'=0, 'c'-'a'=2, so i=0;i<=2,
                 if ((transitions[st][let] != BAD))
@@ -113,13 +112,13 @@ int main(int argc, const char * argv[])
             }
         }
 
-        //next put into current, next reset to 0's, skip BAD b/c always 0 in both columns
+        //next goes into current, next reset to 0's, stop before BAD b/c always 0 in both columns
         for (int i = 0; i < BAD; i++)
         {
             set_intA_to_intA(currentCount[i], nextCount[i]);
             set_intA_to_int(nextCount[i], 0);
         }
-
+        
     }
     
     cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl << "found:(" << n << ")\t\t" << currentCount[0] << endl;
