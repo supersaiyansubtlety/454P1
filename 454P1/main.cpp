@@ -18,13 +18,13 @@
 #define set_intA_to_int mpz_set_si
 #define init_intA mpz_init
 #define set_intA_to_intA mpz_set
+#define add_intA_to_intA mpz_add
 
 
 using namespace std;
 
 enum states {e, a, b, c, ab, ac, ba, bc, ca, cb, aa, bb, cc, abc, acb, bac, bca, cab, cba, aab, aba, abb, aac, aca, acc, baa, bab, bba, bbc, bcb, bcc, caa, cac, cca, cbb, cbc, ccb, BAD};
 
-//string alphabet = "abc";
 int delta(int curState, int character, int k);
 
 int main(int argc, const char * argv[])
@@ -79,15 +79,15 @@ int main(int argc, const char * argv[])
     };
 
     
-    //for states e through BAD, number of reachable accept states
-    int initializer[BAD+1]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0};
+    //for states e through BAD-1 (no BAD b/c always ignored), number of reachable accept states
+    int initializer[BAD+1]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
     //i'th column of reachable states count
-    intA currentCount[BAD+1];
+    intA currentCount[BAD];
     //i+1'th column of reachable states count
-    intA nextCount[BAD+1];
+    intA nextCount[BAD];
     
     //just init, all 0's
-    for (int i = 0; i <= BAD; i++)
+    for (int i = 0; i < BAD; i++)
     {
         init_intA(currentCount[i]);
         init_intA(nextCount[i]);
@@ -108,12 +108,12 @@ int main(int argc, const char * argv[])
                 if ((transitions[st][let] != BAD))
                 {//skip BAD b/c always 0
                     //for i+1'th column, sum reachable states' counts from i'th column
-                    mpz_add(nextCount[st], nextCount[st], currentCount[st]);
+                    add_intA_to_intA(nextCount[st], nextCount[st], currentCount[st]);
                 }
             }
         }
 
-        //next put into current, next reset to 0's, skip BAD b'c always 0 in both columns
+        //next put into current, next reset to 0's, skip BAD b/c always 0 in both columns
         for (int i = 0; i < BAD; i++)
         {
             set_intA_to_intA(currentCount[i], nextCount[i]);
@@ -122,7 +122,7 @@ int main(int argc, const char * argv[])
 
     }
     
-    cout << "answer: " << endl << "6119266976149912241614898841866546736" << endl << "found:" << endl << currentCount[0] << endl;
+    cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl << "found:(" << n << ")\t\t" << currentCount[0] << endl;
     
     /*
      -
