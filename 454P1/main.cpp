@@ -27,12 +27,13 @@ int delta(int curState, int character, int k);
 
 int main(int argc, const char * argv[])
 {
+    //number of strings accepted of length n
     int n;
     
     cout << "enter a number: ";
     cin >> n;
-    string input;
     
+    //transistion table [state][input] = destination
     int transitions[BAD+1][3] =
     {
         {a,b,c},
@@ -76,34 +77,41 @@ int main(int argc, const char * argv[])
     };
 
     
+    //for states e through BAD, number of reachable accept states
     int initializer[BAD+1]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0};
-    integer currentCount[BAD+1];// = malloc((BAD+1) * sizeof(mpz_t));
+    //i'th column of reachable states count
+    integer currentCount[BAD+1];
+    //i+1'th column of reachable states count
     integer nextCount[BAD+1];
-
+    
+    //just init, all 0's
     for (int i = 0; i <= BAD; i++)
     {
         mpz_init(currentCount[i]);
         mpz_init(nextCount[i]);
     }
-    for (int i = 0; i <= BAD; i++)
+    //assign initial counts to current
+    for (int i = 0; i < BAD; i++)
     {
         mpz_set_si(currentCount[i], initializer[i]);
     }
-    mpz_init2(currentCount[BAD], 0);
 
-    for(int i = 0; i < n; i++)
-    {
-        for (int st = 0; st < BAD; st++)
-        {
+    //calculate the i+1'th column of reachable accepting state counts
+    for(int i = 0; i < n - 1; i++)//end at n-1 because we're finding i+1'th column, so find (n-1)+1'th
+    {//go n times b/c string
+        for (int st = e; st < BAD; st++)
+        {//for each state except BAD, e to BAD-1
             for (int let = 'a'-'a'; let <= 'c'-'a'; let++)
-            {
+            {//'a'-'a'=0, 'c'-'a'=2, so i=0;i<=2,
                 if ((transitions[st][let] != BAD))
-                {
+                {//skip BAD b/c always 0
+                    //for i+1'th column, sum reachable states' counts from i'th column
                     mpz_add(nextCount[st], nextCount[st], currentCount[st]);
                 }
             }
         }
 
+        //next put into current, next reset to 0's, skip BAD b'c always 0 in both columns
         for (int i = 0; i < BAD; i++)
         {
             mpz_set(currentCount[i], nextCount[i]);
