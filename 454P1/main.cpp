@@ -12,11 +12,13 @@
 #include <queue>
 #include <vector>
 #include <gmpxx.h>
-#include <stdlib.h> // malloc
 #include "linked_list.hpp"
-//#include "tree.hpp"
 
-#define integer mpz_t
+#define intA mpz_t //intA because int with arbitrary recision
+#define set_intA_to_int mpz_set_si
+#define init_intA mpz_init
+#define set_intA_to_intA mpz_set
+
 
 using namespace std;
 
@@ -80,20 +82,20 @@ int main(int argc, const char * argv[])
     //for states e through BAD, number of reachable accept states
     int initializer[BAD+1]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0};
     //i'th column of reachable states count
-    integer currentCount[BAD+1];
+    intA currentCount[BAD+1];
     //i+1'th column of reachable states count
-    integer nextCount[BAD+1];
+    intA nextCount[BAD+1];
     
     //just init, all 0's
     for (int i = 0; i <= BAD; i++)
     {
-        mpz_init(currentCount[i]);
-        mpz_init(nextCount[i]);
+        init_intA(currentCount[i]);
+        init_intA(nextCount[i]);
     }
     //assign initial counts to current
     for (int i = 0; i < BAD; i++)
     {
-        mpz_set_si(currentCount[i], initializer[i]);
+        set_intA_to_int(currentCount[i], initializer[i]);
     }
 
     //calculate the i+1'th column of reachable accepting state counts
@@ -114,8 +116,8 @@ int main(int argc, const char * argv[])
         //next put into current, next reset to 0's, skip BAD b'c always 0 in both columns
         for (int i = 0; i < BAD; i++)
         {
-            mpz_set(currentCount[i], nextCount[i]);
-            mpz_set_si(nextCount[i], 0);
+            set_intA_to_intA(currentCount[i], nextCount[i]);
+            set_intA_to_int(nextCount[i], 0);
         }
 
     }
