@@ -82,25 +82,30 @@ int main(int argc, const char * argv[])
     //for states e through BAD-1 (no BAD b/c always ignored), number of reachable accept states
     int initializer[BAD+1]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
     //i'th column of reachable states count
-    intA currentCount[BAD];
-    //i+1'th column of reachable states count
-    intA nextCount[BAD];
+    vector<intA[BAD]> countTable;
+    intA column[BAD];
+    for (int i = 0; i < BAD; i++)
+    {
+        init_intA(column[i]);
+    }
+    
+    countTable.push_back(column);
     
     //just init, all 0's
     for (int i = 0; i < BAD; i++)
     {
-        init_intA(currentCount[i]);
-        init_intA(nextCount[i]);
+        init_intA(countTable[0][i]);
     }
     //assign initial counts to current
     for (int i = 0; i < BAD; i++)
     {
-        set_intA_to_int(currentCount[i], initializer[i]);
+        set_intA_to_int(countTable[0][i], initializer[i]);
     }
 
     //calculate the i+1'th column of reachable accepting state counts
-    for(int i = 0; i < n - 1; i++)//end at n-1 because we're finding i+1'th column, so find (n-1)+1'th
+    for(int i = 0; i < n; i++)//end at n-1 because we're finding i+1'th column, so find (n-1)+1'th
     {//go n times b/c string
+        countTable.push_back(column);//make fresh column, table has i+1 columns
         for (int st = e; st < BAD; st++)
         {//for each state except BAD, e to BAD-1
             for (int let = 'a'-'a'; let <= 'c'-'a'; let++)
@@ -108,21 +113,13 @@ int main(int argc, const char * argv[])
                 if ((transitions[st][let] != BAD))
                 {//skip BAD b/c always 0
                     //for i+1'th column, sum reachable states' counts from i'th column
-                    add_intA_to_intA(nextCount[st], nextCount[st], currentCount[st]);
+                    add_intA_to_intA(countTable[i][st], countTable[i][st], countTable[i+1][st]);
                 }
             }
         }
-
-        //next put into current, next reset to 0's, skip BAD b/c always 0 in both columns
-        for (int i = 0; i < BAD; i++)
-        {
-            set_intA_to_intA(currentCount[i], nextCount[i]);
-            set_intA_to_int(nextCount[i], 0);
-        }
-
     }
     
-    cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl << "found:(" << n << ")\t\t" << currentCount[0] << endl;
+    cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl << "found:(" << n << ")\t\t" << countTable[n - 1][0] << endl;
     
     /*
      -
