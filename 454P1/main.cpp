@@ -26,9 +26,31 @@ using namespace std;
 enum states {e, a, b, c, ab, ac, ba, bc, ca, cb, aa, bb, cc, abc, acb, bac, bca, cab, cba, aab, aba, abb, aac, aca, acc, baa, bab, bba, bbc, bcb, bcc, caa, cac, cca, cbb, cbc, ccb, BAD};
 
 int delta(int curState, int character, int k);
-
+void question1();
+void question2();
 int main(int argc, const char * argv[])
 {
+    char input;
+    cout << "Enter '1' or '2' for question 1 or 2\n'q' to exit:\n ";
+    cin >> input;
+    while(input != 'q'){
+        if(input == '1'){
+            question1();
+            cin >> input;
+        }
+        else if (input == '2'){
+            question2();
+            cin >> input;
+        }
+        else{
+            cout << "Invalid input! :: Enter '1', '2', or 'q'\n";
+            cin >> input;
+        }
+    }
+
+    return 0;
+}
+void question1(){
     //number of strings accepted of length n
     int n;
     
@@ -76,7 +98,7 @@ int main(int argc, const char * argv[])
         {bca,BAD,BAD},
         {cba,BAD,BAD}
     };
-
+    
     
     //for states e through BAD-1 (no BAD b/c always ignored), number of reachable accept states
     int initializer[BAD]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
@@ -111,12 +133,12 @@ int main(int argc, const char * argv[])
                 }
             }
         }
-
+        
         //next goes into current, next reset to 0's, stop before BAD b/c always 0 in both columns
         for (int i = 0; i < BAD; i++)
         {
             set_intA_to_intA(currentCount[i], nextCount[i]);
-            cout << nextCount[i] << ',';
+            //cout << nextCount[i] << ',';
             set_intA_to_int(nextCount[i], 0);
         }
         cout << endl;
@@ -124,20 +146,9 @@ int main(int argc, const char * argv[])
     }
     
     cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl << "found:(" << n << ")\t\t" << currentCount[0] << endl;
-    
-    /*
-     -
-     -
-     -
-     -
-     -
-     -
-     -
-     -
-     -
-     -
-     */
-    
+
+}
+void question2(){
     int k;
     string alphaString;
     
@@ -151,21 +162,6 @@ int main(int argc, const char * argv[])
     {
         alphabet.push_back(c-'0');
     }
-
-    
-//    int states[k];
-    //int p2transitions[k][alphabet.size()];
-    
-//    for (int i = 0; i < k ; i++)
-//    {
-//        for (int j = 0; j < alphabet.size(); j++)
-//        {
-//            p2transitions[i][j] = delta(i, j);
-//        }
-//    }
-    
-    
-    
     queue<pair<int, Node*> > Q;
     
     vector<bool> visited; //(start state’s visited status is set to true.)
@@ -199,20 +195,20 @@ int main(int argc, const char * argv[])
             {
                 
                 visited[next] = true;
-
-//                PARENT.push_back(curr);
-//                LABEL.push_back(c);
+                
+                //                PARENT.push_back(curr);
+                //                LABEL.push_back(c);
                 ParentLabel.add(c, cur_parent);
                 Q.push(make_pair
-                    (
+                       (
                         next,
                         ParentLabel.head
-                    )
-                );
+                        )
+                       );
             }
         }
     }
-                    
+    
     if (next != 0)
         cout << "No solution" << endl;//output “no “solution // or null-string so that the return type will always be a string
     else
@@ -230,13 +226,21 @@ int main(int argc, const char * argv[])
         
         reverse(answer.begin(), answer.end());
         cout << answer << endl;
-            
+        
     }
-    return 0;
 }
-
 int delta(int curState, int character, int k)
 {
 //    if (character == k) return 0;
     return (10*curState + character)%k;
 }
+//    int states[k];
+//int p2transitions[k][alphabet.size()];
+
+//    for (int i = 0; i < k ; i++)
+//    {
+//        for (int j = 0; j < alphabet.size(); j++)
+//        {
+//            p2transitions[i][j] = delta(i, j);
+//        }
+//    }
