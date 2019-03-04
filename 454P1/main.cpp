@@ -36,10 +36,12 @@ int main(int argc, const char * argv[])
     while(input != 'q'){
         if(input == '1'){
             question1();
+            cout << "Enter '1' or '2' for question 1 or 2\n'q' to exit:\n ";
             cin >> input;
         }
         else if (input == '2'){
             question2();
+            cout << "Enter '1' or '2' for question 1 or 2\n'q' to exit:\n ";
             cin >> input;
         }
         else{
@@ -138,14 +140,15 @@ void question1(){
         for (int i = 0; i < BAD; i++)
         {
             set_intA_to_intA(currentCount[i], nextCount[i]);
-            //cout << nextCount[i] << ',';
+            cout << nextCount[i] << ',';
             set_intA_to_int(nextCount[i], 0);
         }
-        cout << endl;
+        //cout << endl;
         
     }
     
-    cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl << "found:(" << n << ")\t\t" << currentCount[0] << endl;
+    //cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl;
+    cout << "found:(" << n << ")\t\t" << currentCount[0] << endl;
 
 }
 void question2(){
