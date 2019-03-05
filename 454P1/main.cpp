@@ -140,7 +140,7 @@ void question1(){
         for (int i = 0; i < BAD; i++)
         {
             set_intA_to_intA(currentCount[i], nextCount[i]);
-            cout << nextCount[i] << ',';
+//            cout << nextCount[i] << ',';
             set_intA_to_int(nextCount[i], 0);
         }
         
