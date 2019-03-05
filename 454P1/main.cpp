@@ -146,7 +146,7 @@ void question1(){
         
     }
     
-    //cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl;
+    cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl;
     cout << "found:(" << n << ")\t\t" << currentCount[0] << endl;
 
 }
