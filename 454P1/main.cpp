@@ -1,9 +1,9 @@
 //
 //  main.cpp
-//  454P1
+//  cs454 Project1
 //
-//  Created by student on 2/15/19.
-//  Copyright © 2019 Will-Martin. All rights reserved.
+//  Created by Will Lucic and Martin Plut on 2/15/19.
+//  Copyright © 2019 Will Lucic - Martin Plut. All rights reserved.
 //
 
 #include <iostream>
@@ -31,10 +31,10 @@ void question2();
 int main(int argc, const char * argv[])
 {
     char input = '0';
-    
+    cout << "Enter '1' or '2' for question 1 or 2\n'q' to exit:  ";
+    cin >> input;
     while(input != 'q'){
-        cout << "Enter '1' or '2' for question 1 or 2\n'q' to exit:  ";
-        cin >> input;
+       
         if(input == '1'){
             question1();
             cout << "Enter '1' or '2' for question 1 or 2\n'q' to exit:\n ";
@@ -47,6 +47,7 @@ int main(int argc, const char * argv[])
         }
         else{
             cout << "Invalid input! :: Enter '1', '2', or 'q'\n";
+            cin >> input;
         }
     }
 
@@ -103,7 +104,7 @@ void question1(){
     
     
     //for states e through BAD-1 (no BAD b/c always ignored), number of reachable accept states
-    int initializer[BAD]  = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    int initializer[BAD]  = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
     //i'th column of reachable states count
     intA currentCount[BAD];
     //i+1'th column of reachable states count
@@ -131,7 +132,7 @@ void question1(){
                 if ((transitions[st][let] != BAD))
                 {//skip BAD b/c always 0
                     //for i+1'th column, sum reachable states' counts from i'th column
-                    add_intA_to_intA(nextCount[st], nextCount[st], currentCount[st]);
+                    add_intA_to_intA(nextCount[st], nextCount[st], currentCount[transitions[st][let]]);
                 }
             }
         }
@@ -146,7 +147,7 @@ void question1(){
         
     }
     
-    cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl;
+    //cout << "answer:(137)\t" << "6119266976149912241614898841866546736" << endl;
     cout << "found:(" << n << ")\t\t" << currentCount[0] << endl;
 
 }
